@@ -2,8 +2,6 @@ package com.example.leanlauncher
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.Switch
 import androidx.activity.ComponentActivity
 import com.example.leanlauncher.databinding.ActivitySettingsBinding
 
@@ -15,7 +13,6 @@ class SettingsActivity : ComponentActivity() {
         b = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(b.root)
 
-        // Load Settings
         b.swTheme.isChecked = SettingsManager.isDarkTheme(this)
         b.swClock.isChecked = SettingsManager.showClock(this)
         b.etGrid.setText(SettingsManager.getGridColumns(this).toString())
@@ -25,7 +22,6 @@ class SettingsActivity : ComponentActivity() {
         b.swLock.isChecked = SettingsManager.doubleTapLock(this)
         b.swSort.isChecked = SettingsManager.sortAscending(this)
 
-        // Listeners
         b.btnBack.setOnClickListener { finish() }
         
         b.swTheme.setOnCheckedChangeListener { _, v -> SettingsManager.setDarkTheme(this, v) }
@@ -51,7 +47,6 @@ class SettingsActivity : ComponentActivity() {
     
     override fun onPause() {
         super.onPause()
-        // Terapkan perubahan dengan me-restart MainActivity
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)

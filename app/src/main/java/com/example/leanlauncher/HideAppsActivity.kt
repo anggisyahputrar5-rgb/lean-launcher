@@ -1,6 +1,7 @@
 package com.example.leanlauncher
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,10 +29,9 @@ class HideAppsActivity : ComponentActivity() {
 
         hiddenSet.addAll(SettingsManager.getHiddenApps(this))
 
-        // Ambil SEMUA aplikasi tanpa filter (bypass)
         lifecycleScope.launch {
             val pm = packageManager
-            val intent = android.content.Intent(android.content.Intent.ACTION_MAIN).addCategory(android.content.Intent.CATEGORY_LAUNCHER)
+            val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
             val resolved = withContext(Dispatchers.IO) { pm.queryIntentActivities(intent, 0) }
             allApps = resolved.map {
                 AppInfo(it.loadLabel(pm).toString(), it.activityInfo.packageName, it.activityInfo.name)

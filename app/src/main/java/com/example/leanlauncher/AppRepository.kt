@@ -16,9 +16,15 @@ object AppRepository {
             val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
             val resolved = pm.queryIntentActivities(intent, 0)
             val list = ArrayList<AppInfo>(resolved.size)
+            
+            val hiddenApps = SettingsManager.getHiddenApps(context)
+            val sortAsc = SettingsManager.sortAscending(context)
+
             for (ri in resolved) {
                 val pkg = ri.activityInfo.packageName
                 if (pkg == context.packageName) continue
+                if (hiddenApps.contains(pkg)) continue
+                
                 list.add(
                     AppInfo(
                         label = ri.loadLabel(pm).toString(),
@@ -27,18 +33,25 @@ object AppRepository {
                     )
                 )
             }
-            list.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.label })
+            
+            if (sortAsc) {
+                list.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.label })
+            } else {
+                list.sortWith(compareByDescending(String.CASE_INSENSITIVE_ORDER) { it.label })
+            }
+            
             cached = list
             loaded = true
             cached
         }
 
     fun launch(context: Context, app: AppInfo) {
-        // Menggunakan cara standar Android yang lebih aman
         val intent = context.packageManager.getLaunchIntentForPackage(app.packageName)
         if (intent != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
             try { context.startActivity(intent) } catch (_: Exception) {}
         }
     }
+    
+    fun clearCache() { loaded = false }
 }
