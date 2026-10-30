@@ -27,8 +27,6 @@ class MainActivity : ComponentActivity() {
     private var allApps: List<AppInfo> = emptyList()
     private var query: String = ""
     
-    private var isBackPressedOnce = false
-
     private val packageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) { AppRepository.clearCache(); reloadApps() }
     }
@@ -45,7 +43,6 @@ class MainActivity : ComponentActivity() {
         binding.apps.adapter = adapter
         binding.apps.setHasFixedSize(true)
         binding.apps.setItemViewCacheSize(20)
-        binding.apps.itemAnimator = null
 
         binding.search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
@@ -69,55 +66,44 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setupSettings() {
-        // Terapkan Tema (Warna text & background)
         val isDark = SettingsManager.isDarkTheme(this)
         val bgColor = if (isDark) 0xFF000000.toInt() else 0xFFFFFFFF.toInt()
         val textColor = if (isDark) 0xFFFFFFFF.toInt() else 0xFF000000.toInt()
         binding.rootLayout.setBackgroundColor(bgColor)
         binding.tvClock.setTextColor(textColor)
-        
-        // Grid
         binding.apps.layoutManager = GridLayoutManager(this, SettingsManager.getGridColumns(this))
-        
-        // Clock
         binding.tvClock.visibility = if (SettingsManager.showClock(this)) View.VISIBLE else View.GONE
-        
-        // Search Bar
         binding.search.visibility = if (SettingsManager.hideSearch(this)) View.GONE else View.VISIBLE
         binding.apps.setPadding(
             binding.apps.paddingLeft, binding.apps.paddingTop, 
             binding.apps.paddingRight, if (SettingsManager.hideSearch(this)) 24 else 80
         )
-
-        // Animasi List
         binding.apps.itemAnimator = null
-        if (SettingsManager.disableAnim(this)) binding.apps.layoutAnimation = null
     }
 
     private fun setupGestures() {
-        // 1. Tekan Lama (Long Press) untuk Buka Settings
-        binding.rootLayout.setOnLongClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-            true
-        }
-
-        // 2. Ketuk 2x (Double Tap) untuk Kunci
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+            }
             override fun onDoubleTap(e: MotionEvent): Boolean {
                 if (SettingsManager.doubleTapLock(this@MainActivity)) {
                     val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
                     val compName = ComponentName(this@MainActivity, MyDeviceAdminReceiver::class.java)
-                    if (dpm.isAdminActive(compName)) {
-                        dpm.lockNow()
-                    } else {
-                        Toast.makeText(this@MainActivity, "Aktifkan izin Admin dulu di Setting HP", Toast.LENGTH_SHORT).show()
-                    }
+                    if (dpm.isAdminActive(compName)) dpm.lockNow()
+                    else Toast.makeText(this@MainActivity, "Aktifkan izin Admin dulu di Setting HP", Toast.LENGTH_SHORT).show()
                     return true
                 }
                 return false
             }
         })
-        binding.rootLayout.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event); false }
+        
+        val touchListener = View.OnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            false
+        }
+        binding.rootLayout.setOnTouchListener(touchListener)
+        binding.apps.setOnTouchListener(touchListener)
     }
 
     private fun startClock() {
@@ -125,7 +111,7 @@ class MainActivity : ComponentActivity() {
             val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
             while (true) {
                 binding.tvClock.text = sdf.format(Date())
-                delay(10000) // Update tiap 10 detik (hemat baterai)
+                delay(10000)
             }
         }
     }
