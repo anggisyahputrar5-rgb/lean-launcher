@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#1C1C1E"
+    android:padding="24dp">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="16dp">
+        <ImageView android:id="@+id/bsIcon" android:layout_width="48dp" android:layout_height="48dp" />
+        <TextView android:id="@+id/bsLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text" android:textSize="18sp" android:textStyle="bold" android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+    <TextView android:id="@+id/btnPin" android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:text="Tambahkan ke Layar Utama" android:textColor="@color/text" android:textSize="16sp" />
+    <TextView android:id="@+id/btnInfo" android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:text="Info Aplikasi" android:textColor="@color/text" android:textSize="16sp" />
+    <TextView android:id="@+id/btnUninstall" android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:text="Hapus (Uninstall)" android:textColor="#FF453A" android:textSize="16sp" />
+</LinearLayout>

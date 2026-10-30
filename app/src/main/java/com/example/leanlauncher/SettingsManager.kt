@@ -23,12 +23,6 @@ object SettingsManager {
     fun hideSearch(c: Context) = get(c).getBoolean("hide_search", false)
     fun setHideSearch(c: Context, v: Boolean) = get(c).edit().putBoolean("hide_search", v).apply()
 
-    fun getIconShape(c: Context) = get(c).getInt("icon_shape", 0)
-    fun setIconShape(c: Context, v: Int) = get(c).edit().putInt("icon_shape", v).apply()
-
-    fun sortAscending(c: Context) = get(c).getBoolean("sort_asc", true)
-    fun setSortAscending(c: Context, v: Boolean) = get(c).edit().putBoolean("sort_asc", v).apply()
-
     fun disableAnim(c: Context) = get(c).getBoolean("disable_anim", false)
     fun setDisableAnim(c: Context, v: Boolean) = get(c).edit().putBoolean("disable_anim", v).apply()
 
@@ -37,4 +31,8 @@ object SettingsManager {
 
     fun getHiddenApps(c: Context): Set<String> = get(c).getStringSet("hidden_apps", emptySet()) ?: emptySet()
     fun setHiddenApps(c: Context, v: Set<String>) = get(c).edit().putStringSet("hidden_apps", v).apply()
+
+    // Fitur Pin Aplikasi ke Home
+    fun getPinnedApps(c: Context): Set<String> = get(c).getStringSet("pinned_apps", emptySet()) ?: emptySet()
+    fun setPinnedApps(c: Context, v: Set<String>) = get(c).edit().putStringSet("pinned_apps", v).apply()
 }

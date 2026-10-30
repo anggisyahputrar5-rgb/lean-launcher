@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+            
+            <TextView android:id="@+id/tvClock" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text" android:textSize="56sp" android:layout_gravity="center_horizontal" android:layout_marginTop="32dp" android:text="08:35"/>
+            <TextView android:id="@+id/tvDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_dim" android:textSize="14sp" android:layout_gravity="center_horizontal" android:layout_marginBottom="24dp" android:text="Senin, 30 Oktober"/>
+
+            <!-- Area Widget -->
+            <LinearLayout android:id="@+id/widgetContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginBottom="16dp" />
+
+            <!-- Area Pinned Apps -->
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvPinnedApps" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" android:layout_marginBottom="80dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Dock Area -->
+    <LinearLayout android:id="@+id/dockContainer" android:layout_width="match_parent" android:layout_height="80dp" android:layout_gravity="bottom" android:orientation="horizontal" android:gravity="center" android:background="#11000000"/>
+</FrameLayout>
