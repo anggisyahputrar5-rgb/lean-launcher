@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
-import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.example.leanlauncher.databinding.ActivityMainBinding
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() { // <--- Diubah dari ComponentActivity ke FragmentActivity
 
     private lateinit var binding: ActivityMainBinding
     private var isDrawerOpen = false
@@ -27,10 +27,10 @@ class MainActivity : ComponentActivity() {
                 if (e1 == null) return false
                 val diffY = e2.y - e1.y
                 if (Math.abs(diffY) > 100 && Math.abs(velocityY) > 100) {
-                    if (diffY < 0 && !isDrawerOpen) { // Swipe Up -> Buka Drawer
+                    if (diffY < 0 && !isDrawerOpen) {
                         openDrawer()
                         return true
-                    } else if (diffY > 0 && isDrawerOpen) { // Swipe Down -> Tutup Drawer
+                    } else if (diffY > 0 && isDrawerOpen) {
                         closeDrawer()
                         return true
                     }
@@ -54,7 +54,6 @@ class MainActivity : ComponentActivity() {
             false
         }
 
-        // Long Press di Home untuk Settings
         binding.mainContainer.setOnLongClickListener {
             if (!isDrawerOpen) {
                 startActivity(Intent(this, SettingsActivity::class.java))
@@ -66,8 +65,6 @@ class MainActivity : ComponentActivity() {
     private fun openDrawer() {
         isDrawerOpen = true
         loadFragment(DrawerFragment())
-        binding.fragmentContainer.animate().translationY(0f).setDuration(0).start()
-        // Animasi masuk dari bawah
         binding.fragmentContainer.translationY = 2000f
         binding.fragmentContainer.animate().translationY(0f).setDuration(300).start()
     }

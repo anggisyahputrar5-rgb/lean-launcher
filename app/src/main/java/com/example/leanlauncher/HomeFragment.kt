@@ -25,7 +25,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = LauncherAdapter(lifecycleScope) { app -> AppRepository.launch(requireContext(), app) }
+        
+        adapter = LauncherAdapter(
+            scope = lifecycleScope, 
+            onLaunch = { app -> AppRepository.launch(requireContext(), app) }
+        )
+        
         binding.rvPinnedApps.layoutManager = GridLayoutManager(requireContext(), 4)
         binding.rvPinnedApps.adapter = adapter
         

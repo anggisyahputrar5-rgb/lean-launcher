@@ -26,13 +26,14 @@ class DrawerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        adapter = LauncherAdapter(lifecycleScope, { app -> 
-            AppRepository.launch(requireContext(), app) 
-        }, { app ->
-            // Aksi Long Press -> Tampilkan BottomSheet
-            val sheet = AppBottomSheet().apply { setApp(app) }
-            sheet.show(parentFragmentManager, "AppSheet")
-        })
+        adapter = LauncherAdapter(
+            scope = lifecycleScope, 
+            onLaunch = { app -> AppRepository.launch(requireContext(), app) }, 
+            onLongClick = { app ->
+                val sheet = AppBottomSheet().apply { setApp(app) }
+                sheet.show(parentFragmentManager, "AppSheet")
+            }
+        )
 
         binding.rvApps.layoutManager = GridLayoutManager(requireContext(), SettingsManager.getGridColumns(requireContext()))
         binding.rvApps.adapter = adapter
