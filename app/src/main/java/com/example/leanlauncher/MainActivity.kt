@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.leanlauncher.databinding.ActivityMainBinding
@@ -21,7 +22,6 @@ class MainActivity : ComponentActivity() {
     private lateinit var adapter: LauncherAdapter
     private var allApps: List<AppInfo> = emptyList()
     private var query: String = ""
-
     private val GRID_COLUMNS = 5
 
     private val packageReceiver = object : BroadcastReceiver() {
@@ -58,7 +58,10 @@ class MainActivity : ComponentActivity() {
             addAction(Intent.ACTION_PACKAGE_CHANGED)
             addDataScheme("package")
         }
-        registerReceiver(packageReceiver, filter)
+        // Perbaikan: Gunakan ContextCompat agar tidak crash di Android baru
+        ContextCompat.registerReceiver(
+            this, packageReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED
+        )
 
         reloadApps()
     }

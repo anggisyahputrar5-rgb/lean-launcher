@@ -34,10 +34,11 @@ object AppRepository {
         }
 
     fun launch(context: Context, app: AppInfo) {
-        val intent = Intent(Intent.ACTION_MAIN)
-            .addCategory(Intent.CATEGORY_LAUNCHER)
-            .setClassName(app.packageName, app.componentName)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
-        try { context.startActivity(intent) } catch (_: Exception) {}
+        // Menggunakan cara standar Android yang lebih aman
+        val intent = context.packageManager.getLaunchIntentForPackage(app.packageName)
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+            try { context.startActivity(intent) } catch (_: Exception) {}
+        }
     }
 }
