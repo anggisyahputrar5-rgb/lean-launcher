@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp">
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kembali"
+            android:textColor="#0A84FF"
+            android:textSize="16sp"
+            android:padding="8dp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pengaturan"
+            android:textColor="@color/text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+        <View android:layout_width="60dp" android:layout_height="1dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- CARD TAMPILAN -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TAMPILAN" android:textColor="@color/text_dim" android:textSize="12sp" android:layout_marginStart="8dp" android:layout_marginBottom="8dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/bg_ios_card" android:padding="16dp" android:layout_marginBottom="24dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tema Gelap" android:textColor="@color/text"/>
+                    <Switch android:id="@+id/swTheme" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#333333"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tampilkan Jam" android:textColor="@color/text"/>
+                    <Switch android:id="@+id/swClock" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- CARD GRID -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TATA LETAK" android:textColor="@color/text_dim" android:textSize="12sp" android:layout_marginStart="8dp" android:layout_marginBottom="8dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/bg_ios_card" android:padding="16dp" android:layout_marginBottom="24dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Jumlah Kolom (4/5/6)" android:textColor="@color/text"/>
+                    <EditText android:id="@+id/etGrid" android:layout_width="60dp" android:layout_height="40dp" android:inputType="number" android:gravity="center" android:textColor="@color/text" android:background="@drawable/bg_search"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#333333"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tampilkan Label App" android:textColor="@color/text"/>
+                    <Switch android:id="@+id/swLabels" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#333333"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sembunyikan Search Bar" android:textColor="@color/text"/>
+                    <Switch android:id="@+id/swSearch" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- CARD PERFORMA -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PERFORMA & GESTUR" android:textColor="@color/text_dim" android:textSize="12sp" android:layout_marginStart="8dp" android:layout_marginBottom="8dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/bg_ios_card" android:padding="16dp" android:layout_marginBottom="24dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Matikan Animasi" android:textColor="@color/text"/>
+                    <Switch android:id="@+id/swAnim" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#333333"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Ketuk 2x Kunci Layar" android:textColor="@color/text"/>
+                    <Switch android:id="@+id/swLock" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- CARD APLIKASI -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="APLIKASI" android:textColor="@color/text_dim" android:textSize="12sp" android:layout_marginStart="8dp" android:layout_marginBottom="8dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/bg_ios_card" android:padding="16dp" android:layout_marginBottom="24dp">
+                <LinearLayout android:id="@+id/btnHideApps" android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sembunyikan Aplikasi" android:textColor="@color/text"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:textColor="@color/text_dim"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#333333"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Urutkan A-Z" android:textColor="@color/text"/>
+                    <Switch android:id="@+id/swSort" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
