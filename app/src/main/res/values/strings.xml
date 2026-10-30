@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lean Launcher</string>
+    <string name="search_hint">Cari aplikasi…</string>
+    <string name="empty">Tidak ada aplikasi</string>
+</resources>
